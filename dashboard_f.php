@@ -1,10 +1,5 @@
 <?php
-   session_start();
    include("db.php");
-   if (!isset($_SESSION['admin_no'])) {
-      header("Location: index.php");
-      exit();
-  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,7 +111,7 @@
             </a>
          </li>
          <li>
-            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
+            <a href="books.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
             <i class="fa-solid fa-book fa-xl w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21" id="books"></i>
             <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"> -->
                <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
