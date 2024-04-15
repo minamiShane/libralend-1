@@ -133,7 +133,7 @@ include("db.php");
                     <h3 class="text-lg font-semibold text-gray-900">' . $row['book_title'] . '</h3>
                     <p class="text-sm text-gray-600 mb-2">' . $row['book_author'] . '</p>
                     <p class="text-sm text-gray-600 mb-2">' . 'From: ' . ucfirst($name) . '</p>
-                    <a href="uploads/' . $row['pdf_file'] . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">Read PDF</a>
+                    <a href="uploads/' . $row['pdf_file'] . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block" taget="_blank">Read PDF</a>
                 </div>';
             }
         } else {
