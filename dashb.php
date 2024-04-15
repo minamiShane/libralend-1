@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css.css">
+
    <title>Dashboard</title>
 
    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
@@ -58,7 +58,7 @@
                 if($result) {
                     $row = mysqli_fetch_assoc($result);
                     $total_users = $row['total_users'];
-                    echo "total users :" . " <p class='text-2xl ml-5 bg-[#fcfaff] text-center rounded-xl p-1 text-[#123499] hover:text-[#0b6317] '> $total_users </p>";
+                    echo "total users :" . " <p class='text-2xl ml-5 bg-[#fcfaff] text-center rounded-md p-1 text-[#123499] hover:text-[#0b6317] '> $total_users </p>";
                 } else {
                     echo "Error: Unable to fetch the total number of users";
                 }
@@ -72,13 +72,13 @@
             <p class="text-2xl ml-5 text-[#fcfaff] dark:text-gray-500">
                
             <?php 
-                $query = "SELECT COUNT(*) AS total_ebook FROM books WHERE no";
+                $query = "SELECT COUNT(*) AS total_ebook FROM books WHERE book_type = 'ebook'";
                 $result = mysqli_query($con, $query);
 
                 if($result) {
                     $row = mysqli_fetch_assoc($result);
                     $total_ebook = $row['total_ebook'];
-                    echo "total ebook :" . " <p class='text-2xl ml-5 bg-[#fcfaff] text-center rounded-xl p-1 text-[#123499] hover:text-[#0b6317] '> $total_ebook </p>";
+                    echo "total ebook :" . " <p class='text-2xl ml-5 bg-[#fcfaff] text-center rounded-md p-1 text-[#123499] hover:text-[#0b6317] '> $total_ebook </p>";
                 } else {
                     echo "Error: Unable to fetch the total number of users";
                 }
@@ -87,8 +87,22 @@
             </a>
          </div>
          <div class="flex items-center justify-center h-24 rounded bg-[#123499] dark:bg-gray-800 hover:bg-[#0b6317]">
-         <i class="fa-solid fa-book fa-2xl w-5 h-5 text-[#fcfaff] transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21" id="books"></i>
-
+            <i class="fa-solid fa-book fa-2xl w-5 h-5 text-[#fcfaff] transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21" id="books"></i>
+            <p class="text-2xl ml-5 text-[#fcfaff] dark:text-gray-500">
+               
+               <?php 
+                   $query = "SELECT COUNT(*) AS total_ebook FROM books WHERE book_type = 'book'";
+                   $result = mysqli_query($con, $query);
+   
+                   if($result) {
+                       $row = mysqli_fetch_assoc($result);
+                       $total_ebook = $row['total_ebook'];
+                       echo "total no. of book :" . " <p class='text-2xl ml-5 bg-[#fcfaff] text-center rounded-md p-1 text-[#123499] hover:text-[#0b6317] '> $total_ebook </p>";
+                   } else {
+                       echo "Error: Unable to fetch the total number of users";
+                   }
+                 ?>
+               </p>   
          </div>
       </div>
       <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">

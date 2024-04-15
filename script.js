@@ -1,3 +1,4 @@
+//Scroll Effects
 window.addEventListener('scroll', reveal);
 function reveal(){
     var reveals = document.querySelectorAll('.reveal');
@@ -13,6 +14,8 @@ function reveal(){
         }
     }
 }
+
+//navigation
 function nav(){
     let navigation = document.querySelector('.nav');
 
@@ -29,21 +32,4 @@ function navback(){
 
     back.style.display = "none";
     back.classList.remove('act');
-}
-
-
-
-function login(){
-    let login = document.getElementById('log');
-    let register = document.getElementById('reg');
-
-    register.style.display = "flex";
-    login.style.display = "none";
-}
-function register(){
-    let login = document.getElementById('log');
-    let register = document.getElementById('reg');
-
-    register.style.display = "none";
-    login.style.display = "flex";
 }
