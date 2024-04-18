@@ -88,8 +88,7 @@
          </div>
          <div class="flex items-center justify-center h-24 rounded bg-[#123499] dark:bg-gray-800 hover:bg-[#0b6317]">
             <i class="fa-solid fa-book fa-2xl w-5 h-5 text-[#fcfaff] transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21" id="books"></i>
-            <p class="text-2xl ml-5 text-[#fcfaff] dark:text-gray-500">
-               
+            <p class="text-2xl ml-5 text-[#fcfaff] dark:text-gray-500"> 
                <?php 
                    $query = "SELECT COUNT(*) AS total_ebook FROM books WHERE book_type = 'book'";
                    $result = mysqli_query($con, $query);
@@ -105,11 +104,20 @@
                </p>   
          </div>
       </div>
-      <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-         <p class="text-2xl text-gray-400 dark:text-gray-500">
-            <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-            </svg>
+      <div class="flex items-center justify-center h-48 mb-4 rounded bg-[#123499] hover:bg-[#0b6317]">
+         <p class="text-2xl text-[#fcfaff]">
+                  <?php 
+                   $query = "SELECT COUNT(*) AS total_borrow FROM borrow WHERE borrow_no";
+                   $result = mysqli_query($con, $query);
+   
+                   if($result) {
+                       $row = mysqli_fetch_assoc($result);
+                       $total_ebook = $row['total_borrow'];
+                       echo "total no. of borrowed books:" . " <p class='text-2xl ml-5 bg-[#fcfaff] text-center rounded-md p-1 text-[#123499] hover:text-[#0b6317] '> $total_ebook </p>";
+                   } else {
+                       echo "Error: Unable to fetch the total number of users";
+                   }
+                 ?>
          </p>
       </div>
       <div class="grid grid-cols-2 gap-4 mb-4">

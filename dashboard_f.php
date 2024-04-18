@@ -52,7 +52,7 @@
          if (dashboardLink) {
             dashboardLink.style.backgroundColor = '#0b6317';
             dashboardLink.style.color = '#fcfaff';
-            dblogo.style.color = 'fcfaff';
+            dblogo.style.color = '#fcfaff';
          }
        }
    });
@@ -63,7 +63,7 @@
          if (users) {
             users.style.backgroundColor = '#0b6317';
             users.style.color = '#fcfaff';
-            userlogo.style.color = 'fcfaff';
+            userlogo.style.color = '#fcfaff';
          }
       }
    });
@@ -78,6 +78,15 @@
             i.style.color = '#fcfaff';
             }
          }
+       }
+   });
+   window.addEventListener('DOMContentLoaded', (event) => {
+      var borrowed = document.getElementById('borrowed');
+      var bar = document.getElementById('borrowed');
+      if (window.location.href.indexOf("borrow.php") !== -1) {
+            borrowed.style.backgroundColor = '#0b6317';
+            borrowed.style.color = '#fcfaff';
+            bar.style.color = '#fcfaff';
        }
    });
    </script>
@@ -128,18 +137,12 @@
             </a>
          </li>
          <li>
-            <a href="users.php" id="users" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
-            <i id="i-borrow" class="fa-solid fa-address-book fa-xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21" id="books"></i>
+            <a href="borrow.php" id="borrowed" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
+            <i id="borrowed" class="fa-solid fa-address-book fa-xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21" id="books"></i>
                <span class="flex-1 ms-3 whitespace-nowrap">Borrowed Books</span>
             </a>
          </li>
          <li>
-         <li>
-            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
-            <i class="fa-solid fa-pen-to-square fa-xl flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-[#fcfaff] group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18 " id="reserve"></i>
-               <span class="flex-1 ms-3 whitespace-nowrap">Reservation</span>
-            </a>
-         </li>
          <li>
             <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
             <i class="fa-solid fa-coins fa-xl flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18 " id="reserve"></i>

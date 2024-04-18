@@ -62,37 +62,13 @@
 <script>
       //for dashboard
     window.addEventListener('DOMContentLoaded', (event) => {
-      var dashboardLink = document.getElementById('dashboard');
-      var dblogo = document.getElementById('db');
-      if (window.location.href.indexOf("dashb.php") !== -1) {
-         if (dashboardLink) {
-            dashboardLink.style.backgroundColor = '#0b6317';
-            dashboardLink.style.color = '#fcfaff';
-            dblogo.style.color = 'fcfaff';
-         }
-       }
-   });
-    window.addEventListener('DOMContentLoaded', (event) => {
-      var users = document.getElementById('users');
-      var userlogo = document.getElementById('userlogo');
-      if(window.location.href.indexOf("users.php") !== -1 || window.location.href.indexOf("add_record.php") !== -1 || window.location.href.indexOf("update.php") !== -1){
-         if (users) {
-            users.style.backgroundColor = '#0b6317';
-            users.style.color = '#fcfaff';
-            userlogo.style.color = 'fcfaff';
-         }
-      }
-   });
-   window.addEventListener('DOMContentLoaded', (event) => {
-      var books = document.getElementById('books');
-      var i = document.getElementById('i');
-      if (window.location.href.indexOf("books.php") !== -1) {
-         if (books) {
-            books.style.backgroundColor = '#0b6317';
-            books.style.color = '#fcfaff';
-            if (i) {
-            i.style.color = '#fcfaff';
-            }
+      var home = document.getElementById('home');
+      var home_icon = document.getElementById('icon');
+      if (window.location.href.indexOf("user_page.php") !== -1) {
+         if (home) {
+            home.style.backgroundColor = '#0b6317';
+            home.style.color = '#fcfaff';
+            home_icon.style.color = '#fcfaff';
          }
        }
    });
@@ -135,19 +111,13 @@
             </a>
          </li>
          <li>
-            <a href="" id="dashboard" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
-              <i class="fa-solid fa-house fa-xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white"></i>
+            <a href="user_page.php" id="home" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
+              <i id="icon" class="fa-solid fa-house fa-xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white"></i>
               <span class="ms-3">Home</span>
             </a>
          </li>
          <li>
-            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499]  hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
-            <i id="i" class="fa-solid fa-book fa-xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21" id="books"></i>
-              <span class="flex-1 ms-3 whitespace-nowrap">Book Reservation</span>
-            </a>
-         </li>
-         <li>
-            <a href="users.php" id="users" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
+            <a href="borrow_book.php" id="users" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
             <i id="i-borrow" class="fa-solid fa-address-book fa-xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21" id="books"></i>
                <span class="flex-1 ms-3 whitespace-nowrap">Borrowed Books</span>
             </a>
@@ -202,15 +172,10 @@
             <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to borrow this book?</p>
             <label for="terms" class="mb-4 text-gray-500 flex items-center justify-center">
               <input type="checkbox" id="terms" class="mr-2" onchange="toggleButton()">
-              <span class="text-gray-600 dark:text-gray-400">I agree to the terms and conditions</span>
+              <span class="text-gray-600 dark:text-gray-400">I agree to the <a href="borrow_tnc.php" class="underline">terms and conditions</a></span>
             </label>
             <div class="flex justify-center items-center space-x-4">
-                <button id="yesButton" type="submit" name="yes" class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg  hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-red-600 dark:focus:ring-red-900" href>
-                    Yes
-                </button>
-                <button data-modal-toggle="deleteModal" type="button" class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                    No
-                </button>
+
             </div>
         </div>
     </div>
@@ -223,13 +188,11 @@
               yesButton.disabled = false;
           } else {
               yesButton.disabledd = true;
-          }
         }
-      </script>
-
+      }
+    </script>
 </div>
-
-        <div class="mt-8 grid grid-cols-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-4">
+        <div class="mt-8 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <?php
             $name = $_SESSION['lid'];
             $sel = "SELECT * FROM admin WHERE name='$name'";
@@ -243,7 +206,7 @@
         <?php
         if(isset($_GET['srch_val'])) {
             $search = mysqli_real_escape_string($con, $_GET['srch_val']);
-            $query = "SELECT * FROM books WHERE book_title LIKE '%$search%' OR book_author LIKE '%$search%'";
+            $query = "SELECT * FROM books WHERE book_title LIKE '%$search%' OR book_author LIKE '%$search%' OR book_no LIKE '%$search%'";
         } else {
             $query = "SELECT * FROM books";
         }
@@ -252,26 +215,35 @@
           if (mysqli_num_rows($result) > 0) {
               while ($row = mysqli_fetch_assoc($result)) {
                   echo '
-                  <div class="bg-[#c3d3ff] rounded-lg shadow-md p-4">
-                      <img src="uploads/' . $row['book_profile'] . '" class="w-32 h-36 bg-cover bg-center rounded mb-4" alt="' . $row['book_title'] . '">
+                  <div class="bg-[#c3d3ff] rounded-lg shadow-md p-4 w-60 flex-column justify-items-center">
+                  <form action="borrow_book.php" method="POST">
+                    <div class="flex overflow-hidden">
+                      <img src="uploads/' . $row['book_profile'] . '" class="w-28 bg-cover bg-center rounded mb-4" alt="' . $row['book_title'] . '">
+                      <div class="ml-2 content-end mb-4">
                       <h3 class="text-lg font-semibold text-gray-900">' . $row['book_title'] . '</h3>
-                      <p class="text-sm text-gray-600 mb-2">' . $row['book_author'] . '</p>';
+                      <p class="text-sm text-gray-600 mb-2">' . $row['book_author'] . '</p>
+                      <p class="text-sm text-gray-600 mb-2">' . $row['book_no'] . '</p>
+                      <p class="text-sm text-gray-600 mb-2">' . $row["no"] . '</p>
+                      <input type="hidden" name="no" value="' . $row['no'] . '">';
+                      
+                      echo '</div>';
+                      echo '</div>';
+                      $_SESSION['no'] = $row['no'];
                       if($row['book_type'] == 'ebook') {
-                        echo '<a href="uploads/' . $row['pdf_file'] . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block" target="_blank">Read PDF</a>';
+                        echo '<a href="uploads/' . $row['pdf_file'] . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" target="_blank">Read PDF</a>';
                       } else {
-                        #echo '<button id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal" class="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" type="button">
-                        #Show delete confirmation
-                        #</button>';
-                        echo '<a id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block" type="button" target="_blank">Borrow</a>';
+                        echo '<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" value="'. $row['no'] . '">Borrow</button>' ;
+                        echo '<button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-4 rounded" type="button" target="_blank" value="'. $row['no'] . '">Reserve</button>';
+                        echo '<a href="borrow_tnc.php" class="underline place-self-center" target="_blank">terms and conditions</a>';
                       }
-                  echo '</div>';
+                  echo '</form></div>';
               }
+              
           } else {
               echo "<p class='grid place-self-center'>No books found.</p>";
           }
         ?>
         </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 </html>
