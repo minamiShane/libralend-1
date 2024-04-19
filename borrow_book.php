@@ -48,6 +48,9 @@
         th, td{
             padding: 12px;
         }
+        .even-row {
+          background-color: #f3f3f3;
+        }
     </style>
 </head>
 <body>
@@ -146,52 +149,86 @@
             $book_author = $r_cust['book_author'];
             $book_no = $r_cust['book_no'];
             $number_created = rand(1000,9999);
+
+            $lid = $_SESSION['lid'];
+            $sel = "SELECT * FROM register WHERE lid='$lid'";
+            $query = mysqli_query($con, $sel);
+        
+            if(mysqli_num_rows($query) == 1) {
+              $result = mysqli_fetch_assoc($query);
+              $fname = $result['fname'];
+              $lname = $result['lname'];
+              $name = $fname . " " . $lname;
+
+            $_sel = "INSERT INTO borrow (book_title, book_author, book_no, number_created, from_who)  
+            values ('$book_title', '$book_author', '$book_no', '$number_created', '$name')";
+            $_qry = mysqli_query($con, $_sel);
+
+            if($_qry){
+                echo'
+                    <script type="text/javascript">
+                        alert("Please present the 4 digit code to your Library Administrator.");
+                        window.location = "borrow_book.php";
+                    </script>
+                ';
+                exit();
+            }
+            exit();
         }
+        exit();
+    }
     }
     $lid = $_SESSION['lid'];
     $sel = "SELECT * FROM register WHERE lid='$lid'";
     $query = mysqli_query($con, $sel);
 
-    if(mysqli_num_rows($query) == 1) {
-      $result = mysqli_fetch_assoc($query);
-      $fname = $result['fname'];
-      $lname = $result['lname'];
-      $name = $fname . " " . $lname;
+    if(mysqli_num_rows($query) == 1) 
+        $result = mysqli_fetch_assoc($query);
+        $fname = $result['fname'];
+        $lname = $result['lname'];
+        $name = $fname . " " . $lname;
 
-      $q_y = "SELECT * FROM borrow WHERE from_who LIKE '%$name%'";
-      $r_t = mysqli_query($con, $q_y);
+    $q_y = "SELECT * FROM borrow WHERE from_who LIKE '%$name%'";
+    $r_t = mysqli_query($con, $q_y);
 
-      if(mysqli_num_rows($r_t) > 0) {
-        echo "<table class='border-dashed border-2 w-full mt-12'>";
-        echo "<thead class='border-dashed border-2'>";
-        echo "<tr><th class='border-dashed border-2'>Book No.</th><th class='border-dashed border-2'>Book Title</th><th class='border-dashed border-2'>Book Author</th><th class='border-dashed border-2'>Date Borrow</th><th class='border-dashed border-2'>Due Date</th><th class='border-dashed border-2'>Code</th><th class='border-dashed border-2'>Delete</th></tr>";
-        echo "</thead>";
-        echo "<tbody class='border-dashed border-2'>";
-
-        while($_row = mysqli_fetch_assoc($r_t)) {
-            echo "<tr>";
-            echo "<td class='border-dashed border-2'>" . $_row['book_no'] . "</td>";
-            echo "<td class='border-dashed border-2'>" . $_row['book_title'] . "</td>";
-            echo "<td class='border-dashed border-2'>" . $_row['book_author'] . "</td>";
+    if(mysqli_num_rows($r_t) > 0) {
+      echo "<table class='border-dashed border-2 w-full mt-12 py-2'>";
+      echo "<thead class='border-dashed border-2 bg-[#c3d3ff]'>";
+      echo "<tr><th class='border-dashed border-2'>Book No.</th><th class='border-dashed border-2'>Book Title</th><th class='border-dashed border-2'>Book Author</th><th class='border-dashed border-2'>Date Borrow</th><th class='border-dashed border-2'>Due Date</th><th class='border-dashed border-2'>Code</th><th class='border-dashed border-2'>Fines</th></tr>";
+      echo "</thead>";
+      echo "<tbody class='border-dashed border-2'>";
+      $count = 0;
+      while($_row = mysqli_fetch_assoc($r_t)) {
+          $count++;
+          $row_class = ($count % 2 == 0) ? "even-row" : "odd-row";
+          echo "<tr class='".$row_class."'>";
+          echo "<td class='border-dashed border-2'>" . $_row['book_no'] . "</td>";
+          echo "<td class='border-dashed border-2'>" . $_row['book_title'] . "</td>";
+          echo "<td class='border-dashed border-2'>" . $_row['book_author'] . "</td>";
+          if($_row['status']=='pending'){
+            echo "<td class='border-dashed border-2'>pending...</td>";
+            echo "<td class='border-dashed border-2'>pending...</td>";
+          }else{
             echo "<td class='border-dashed border-2'>" . $_row['date_borrow'] . "</td>";
             echo "<td class='border-dashed border-2'>" . $_row['due_date'] . "</td>";
-            echo "<td class='border-dashed border-2'>" . $_row['number_created'] . "</td>";
+          }
+          echo "<td class='border-dashed border-2 bg-[#c3d3ff]'>" . $_row['number_created'] . "</td>";
+          if($_row['status']=='pending'){
             echo "<td class='border-dashed border-2'>";
-            echo " <a href='send.php?borrow_no=" . $_row['borrow_no'] . "'><i class='fa-solid fa-eye fa-2x'></i></a>";
+            echo "pending...";
             echo "</td>";
-            echo "</tr>";
-        }
-        echo "</tbody>";
-        echo "</table>";
-    } else {
-        echo "No results found.";
-    }
-    }
-
-    $_query = "SELECT * FROM borrow";
-    $_result = mysqli_query($con, $_query);
-
-
+          }else{
+            echo "<td class='border-dashed border-2'>";
+              echo $_row['fines'];
+            echo "</td>";
+          }
+          echo "</tr>";
+      }
+      echo "</tbody>";
+      echo "</table>";
+  } else {
+      echo "You don't have any transaction here.";
+  }
 ?>
 </div>
 

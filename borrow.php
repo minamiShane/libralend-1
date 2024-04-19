@@ -34,6 +34,11 @@ session_start();
       }
     }
     </script>
+    <style>
+        #table{
+            padding: 12px;
+        }
+    </style>
     <style type="text/tailwindcss">
     @layer utilities {
       .content-auto {
@@ -44,6 +49,11 @@ session_start();
     <title>
         Borrowed Books
     </title>
+    <style type="text/css">
+        .even-row {
+          background-color: #f3f3f3;
+        }
+    </style>
 </head>
 <body>
     <?php
@@ -55,17 +65,22 @@ session_start();
         $r_t = mysqli_query($con, $q_y);
 
         if(mysqli_num_rows($r_t) > 0) {
-        echo "<table class='border-dashed border-2 w-full mt-12'>";
-        echo "<thead class='border-dashed border-2'>";
-        echo "<tr><th class='border-dashed border-2'>From</th><th class='border-dashed border-2'>Book Title</th><th class='border-dashed border-2'>Book Author</th><th class='border-dashed border-2'>Date Borrow</th><th class='border-dashed border-2'></th><th class='border-dashed border-2'>Due Date</th><th class='border-dashed border-2'>Fines</th></tr>";
-        echo "</thead>";
-        echo "<tbody class='border-dashed border-2'>";
+            $count = 0;
+            echo "
+                <table class='border-dashed border-2 w-full mt-12' id='table'>
+                <thead class='border-dashed border-2 bg-[#c3d3ff]'>
+                <tr><th class='border-dashed border-2'>From</th><th class='border-dashed border-2'>Book Title</th><th class='border-dashed border-2'>Book Author</th><th class='border-dashed border-2'>Date Borrow</th><th class='border-dashed border-2'></th><th class='border-dashed border-2'>Due Date</th><th class='border-dashed border-2'>Fines</th></tr>
+                </thead>";
+            echo "<tbody class='border-dashed border-2 p-2'>";
 
             while($_row = mysqli_fetch_assoc($r_t)) {
+                $count++;
+                $row_class = ($count % 2 == 0) ? "even-row" : "odd-row";
                 echo "<tr>";
                 echo "<td class='border-dashed border-2'>" . $_row['from_who'] . "</td>";
                 echo "<td class='border-dashed border-2'>" . $_row['book_title'] . "</td>";
                 echo "<td class='border-dashed border-2'>" . $_row['book_author'] . "</td>";
+                $_SESSION['borrow_no'] = $_row['borrow_no'];
                 if($_row['status']=='pending'){
                     echo " <td class='border-dashed border-2'>pending...</td>";  
                 }elseif($_row['status'] == 'borrowed'){
@@ -73,11 +88,13 @@ session_start();
                 }else{
                     echo "<td class='border-dashed border-2'>" . $_row['date_borrow'] . "</td>";
                 }
-
+                $_SESSION['number_created'] = $_row['number_created'];
                 if($_row['status'] == 'pending'){
-                    echo " <td class='border-dashed border-2'><form method='POST'>
-                    <input type='text' placeholder='type code here'>
-                    <input type='submit' name='send' value='Send'>
+                    echo " <td class='border-dashed border-2'><form action='borrowed.php' method='POST'>
+                    <input type='hidden' name='borrow_no' value=" . $_row["borrow_no"] . ">
+                    <input type='hidden' name='number_created' value=" . $_row["number_created"] . ">
+                    <input type='text' placeholder='type code here' name='codes'>
+                    <button type='submit' class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' >send</button>
                     </form></td>";
                 }elseif($_row['status'] == 'borrowed'){
                     echo "<td class='border-dashed border-2'>Borrowed</td>";
@@ -102,7 +119,7 @@ session_start();
         echo "</tbody>";
         echo "</table>";
         } else {
-        echo "No results found.";
+        echo "No borrowers.";
         }
     ?>
     </div>

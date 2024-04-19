@@ -223,18 +223,17 @@
                       <h3 class="text-lg font-semibold text-gray-900">' . $row['book_title'] . '</h3>
                       <p class="text-sm text-gray-600 mb-2">' . $row['book_author'] . '</p>
                       <p class="text-sm text-gray-600 mb-2">' . $row['book_no'] . '</p>
-                      <p class="text-sm text-gray-600 mb-2">' . $row["no"] . '</p>
                       <input type="hidden" name="no" value="' . $row['no'] . '">';
-                      
                       echo '</div>';
                       echo '</div>';
                       $_SESSION['no'] = $row['no'];
                       if($row['book_type'] == 'ebook') {
-                        echo '<a href="uploads/' . $row['pdf_file'] . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" target="_blank">Read PDF</a>';
+                        echo '<a href="uploads/' . $row['pdf_file'] . '" class="bg-blue-500 hover:bg-blue-700 text-white mt-4 font-bold py-2 px-4 rounded" target="_blank">Read PDF</a>';
                       } else {
-                        echo '<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" value="'. $row['no'] . '">Borrow</button>' ;
-                        echo '<button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-4 rounded" type="button" target="_blank" value="'. $row['no'] . '">Reserve</button>';
+                        echo '<div class="flex">';
+                        echo '<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4" value="'. $row['no'] . '">Borrow</button>' ;
                         echo '<a href="borrow_tnc.php" class="underline place-self-center" target="_blank">terms and conditions</a>';
+                        echo '</div>';
                       }
                   echo '</form></div>';
               }

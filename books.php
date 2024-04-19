@@ -132,7 +132,6 @@ include("db.php");
                     <img src="uploads/' . $row['book_profile'] . '" class="w-56 h-60 bg-cover bg-center rounded mb-4" alt="' . $row['book_title'] . '">
                     <h3 class="text-lg font-semibold text-gray-900">' . $row['book_title'] . '</h3>
                     <p class="text-sm text-gray-600 mb-2">' . $row['book_author'] . '</p>
-                    <p class="text-sm text-gray-600 mb-2">' . 'From: ' . ucfirst($name) . '</p>
                     <a href="uploads/' . $row['pdf_file'] . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block" taget="_blank">Read PDF</a>
                 </div>';
             }
