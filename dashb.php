@@ -104,9 +104,10 @@
                </p>   
          </div>
       </div>
-      <div class="flex items-center justify-center h-48 mb-4 rounded bg-[#123499] hover:bg-[#0b6317]">
-         <p class="text-2xl text-[#fcfaff]">
-                  <?php 
+      <div class="grid grid-cols-2 gap-4 mb-4">
+         <div class="flex items-center justify-center rounded bg-[#123499] hover:bg-[#0b6317] h-28">
+            <p class="text-2xl text-[#fcfaff]">
+            <?php 
                    $query = "SELECT COUNT(*) AS total_borrow FROM borrow WHERE borrow_no";
                    $result = mysqli_query($con, $query);
    
@@ -118,21 +119,27 @@
                        echo "Error: Unable to fetch the total number of users";
                    }
                  ?>
-         </p>
-      </div>
-      <div class="grid grid-cols-2 gap-4 mb-4">
-         <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-            <p class="text-2xl text-gray-400 dark:text-gray-500">
-               <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-               </svg>
             </p>
          </div>
-         <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-            <p class="text-2xl text-gray-400 dark:text-gray-500">
-               <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-               </svg>
+         <div class="flex items-center justify-center rounded bg-[#123499] hover:bg-[#0b6317] h-28">
+            <p class="text-2xl text-[#fcfaff]">
+            <?php 
+                   $query = "SELECT COUNT(*) AS total_fines FROM borrow WHERE fines";
+                   $result = mysqli_query($con, $query);
+                   
+                   if($result) {
+                       if(mysqli_num_rows($result) > 0) {
+                        $total_fines = 0;
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        $total_fines += $row['total_fines'];
+                        echo "total fines:" . " <p class='text-2xl ml-5 bg-[#fcfaff] text-center rounded-md p-1 text-[#123499] hover:text-[#0b6317] '> $total_fines </p>";
+                        }
+                     }
+                   } else {
+                       echo "Error: Unable to fetch the total number of users";
+                   }
+                 ?>
+            </p>
             </p>
          </div>
          <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">

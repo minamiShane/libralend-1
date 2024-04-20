@@ -23,6 +23,9 @@
             if($borrow_no == $num){
                 $in = "UPDATE borrow SET date_borrow = '$today', due_date = '$due', status = 'borrowed' WHERE borrow_no = '$borrow_no'";
                 mysqli_query($con, $in);
+
+                $his = "UPDATE history SET date_borrow = '$today', due_date = '$due', status = 'borrowed' WHERE borrow_no = '$borrow_no'";
+                mysqli_query($con, $his);
                 echo"
                 <script type='text/javascript'>
                     alert('Successfully borrowed this book.');

@@ -2,10 +2,10 @@
 session_start();
     include("db.php");
 
-    if (!isset($_SESSION['lid'])) {
-        header("Location: index.php");
-        exit();
-    }
+    // if (!isset($_SESSION['lid'])) {
+    //     header("Location: index.php");
+    //     exit();
+    // }
 ?>
 <!DOCTYPE html>
 <html lang="en">

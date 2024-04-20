@@ -16,16 +16,10 @@ include("db.php");
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <style type="text/css" >
-
+              .even-row {
+          background-color: #f3f3f3;
+        }
     </style>
-</head>
-<body>
-    
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <script src="https://kit.fontawesome.com/95d194ff11.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
     <link rel="shortcut icon" href="./images/logo-ico.ico" type="image/x-icon">
@@ -87,7 +81,7 @@ include("db.php");
     </div>
    </div>
 
-   <div class="p-4 sm:ml-64 h-full grid justify-items-center">  
+   <div class="p-4 sm:ml-64 h-full justify-items-center">  
       <form class="sticky top-5 flex items-center w-1/2 mx-auto">   
          <label for="simple-search" class="sr-only">Search</label>
          <div class="relative w-full">
@@ -104,17 +98,8 @@ include("db.php");
          </button>
       </form>
 
-        <div class="mt-8 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <?php
-            $name = $_SESSION['admin_no'];
-            $sel = "SELECT * FROM admin WHERE name='$name'";
-            $query = mysqli_query($con, $sel);
+        <div class="mt-8">
 
-            if(mysqli_num_rows($query) == 1) {
-                $result = mysqli_fetch_assoc($query);
-                $name = $result['name'];
-            }
-         ?>
         <?php
         if(isset($_GET['srch_val'])) {
             $search = mysqli_real_escape_string($con, $_GET['srch_val']);
@@ -126,18 +111,35 @@ include("db.php");
         $result = mysqli_query($con, $query);
 
         if (mysqli_num_rows($result) > 0) {
+          
+          echo '<table class="border-dashed border-2 w-full mt-12">';
+          echo  '<thead class="border-dashed border-2 bg-[#c3d3ff]">';
+          echo '<tr>';
+          echo '      <th class="border-dashed border-2">Book Profile</th>';
+          echo '      <th class="border-dashed border-2">Book Title</th>';
+          echo '      <th class="border-dashed border-2">Book Author</th>';
+          echo '      <th class="border-dashed border-2">Book Type</th>';
+          echo '    </tr>';
+          echo '  </thead>';
+          echo '  <tbody>';
+          $count = 0;
             while ($row = mysqli_fetch_assoc($result)) {
-                echo '
-                <div class="bg-[#c3d3ff] rounded-lg shadow-md p-4">
-                    <img src="uploads/' . $row['book_profile'] . '" class="w-56 h-60 bg-cover bg-center rounded mb-4" alt="' . $row['book_title'] . '">
-                    <h3 class="text-lg font-semibold text-gray-900">' . $row['book_title'] . '</h3>
-                    <p class="text-sm text-gray-600 mb-2">' . $row['book_author'] . '</p>
-                    <a href="uploads/' . $row['pdf_file'] . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block" taget="_blank">Read PDF</a>
-                </div>';
+              $count++;
+              $row_class = ($count % 2 == 0) ? "even-row" : "odd-row";
+                echo ' <tr  class=' .$row_class. '>';
+                echo '      <td class="border-dashed border-2">  ';                  
+                echo '      <img src="uploads/' . $row['book_profile'] . '" class="w-28 bg-cover bg-center rounded ml-4 mb-4" alt="' . $row['book_title'] . '">';
+                echo '      </td>';
+                echo '      <td class="border-dashed border-2">' . $row['book_title'] . '</td>';
+                echo '      <td class="border-dashed border-2">' . $row['book_author'] . '</td>';
+                echo '      <td class="border-dashed border-2">' . $row['book_type'] . '</td>';
+                echo '    </tr>';
             }
         } else {
             echo '<p>No books found.</p>';
         }
+        echo '  </tbody>';
+        echo '</table>';
         ?>
         </div>
 

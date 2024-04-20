@@ -164,7 +164,11 @@
             values ('$book_title', '$book_author', '$book_no', '$number_created', '$name')";
             $_qry = mysqli_query($con, $_sel);
 
-            if($_qry){
+            $history = "INSERT INTO history (book_title, book_author, book_no, number_created, from_who)  
+            values ('$book_title', '$book_author', '$book_no', '$number_created', '$name')";
+            $hstry_qry = mysqli_query($con, $history);
+
+            if($_qry && $history){
                 echo'
                     <script type="text/javascript">
                         alert("Please present the 4 digit code to your Library Administrator.");
@@ -194,7 +198,7 @@
     if(mysqli_num_rows($r_t) > 0) {
       echo "<table class='border-dashed border-2 w-full mt-12 py-2'>";
       echo "<thead class='border-dashed border-2 bg-[#c3d3ff]'>";
-      echo "<tr><th class='border-dashed border-2'>Book No.</th><th class='border-dashed border-2'>Book Title</th><th class='border-dashed border-2'>Book Author</th><th class='border-dashed border-2'>Date Borrow</th><th class='border-dashed border-2'>Due Date</th><th class='border-dashed border-2'>Code</th><th class='border-dashed border-2'>Fines</th></tr>";
+      echo "<tr><th class='border-dashed border-2'>Book No.</th><th class='border-dashed border-2'>Book Title</th><th class='border-dashed border-2'>Book Author</th><th class='border-dashed border-2'>Date Borrow</th><th class='border-dashed border-2'>Due Date</th><th class='border-dashed border-2'>Code</th><th class='border-dashed border-2'>Fines</th><th class='border-dashed border-2'></th></tr>";
       echo "</thead>";
       echo "<tbody class='border-dashed border-2'>";
       $count = 0;
@@ -220,6 +224,18 @@
           }else{
             echo "<td class='border-dashed border-2'>";
               echo $_row['fines'];
+            echo "</td>";
+          }
+          if($_row['status']=='pending'){
+            echo "<td class='border-dashed border-2'>
+            <form action='cancel_borrow.php' method='POST'>
+            <input type='hidden' name='fines' value='". $_row['fines']."'
+            <button type='submit' class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>cancel</button>
+            </form>
+            </td>";
+          }else{
+            echo "<td class='border-dashed border-2'>";
+              echo "...";
             echo "</td>";
           }
           echo "</tr>";
