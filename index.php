@@ -121,32 +121,28 @@
         </div>
         <div class="creator reveal" >
             <div class="crtr">
-                <img src="./images/mypic-fotor-20240322103239.jpg" alt="">
-                <div class="icons">
-                    <i class="fa-brands fa-square-facebook"></i>
-                    <i class="fa-brands fa-square-instagram"></i>
-                </div>
-                <h1>Shane Rey Nepomuceno</h1>
-            </div>
-            <div class="crtr">
                 <img src="./images/lennox-fotor-20240322103023.jpg" alt="">
-                <div class="icons">
-                    <i class="fa-brands fa-square-facebook"></i>
-                    <i class="fa-brands fa-square-instagram"></i>
-                </div>
                 <h1>Lennox Pedraza</h1>
             </div>
             <div class="crtr">
                 <img src="./images/jera-fotor-20240322101745.jpg" alt="">
-                <div class="icons">
-                    <i class="fa-brands fa-square-facebook"></i>
-                    <i class="fa-brands fa-square-instagram"></i>
-                </div>
                 <h1>Jera Rejane Cassandra Corteza</h1>
+            </div>
+            <div class="crtr">
+                <img src="./images/mypic-fotor-20240322103239.jpg" alt="">
+                <h1>Shane Rey Nepomuceno</h1>
+            </div>
+            <div class="crtr">
+                <img src="./images/jerimar.jpg" alt="">
+                <h1>John Jerimar Paguagan</h1>
+            </div>
+            <div class="crtr">
+                <img src="./images/obispado.jpg" alt="">
+                <h1>Michael obispado</h1>
             </div>
         </div>
     </div>
-    <div id="contact">
+    <!-- <div id="contact">
         <form action="https://api.web3forms.com/submit" method="POST" id="cntct" class="reveal">
             <h1>Contact</h1>
             <div class="cntnt">
@@ -160,7 +156,7 @@
                 <button type="submit" value="send message" id="btnn" ><i class="fa-solid fa-paper-plane" style="margin-right: 12px;"></i>send message</button>
             </div>
         </form>
-    </div>
+    </div> -->
     <footer class="information">
         <div class="p">
             <i class="fa-solid fa-user"></i>

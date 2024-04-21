@@ -50,6 +50,9 @@
     a button{
         width: 100px;
     }
+    #even{
+        background-color: #f3f3f3;
+    }
     @media screen and (min-width: 630px and min-width: 0){
         .user{
             margin-left: 0;
@@ -96,9 +99,11 @@
                 echo "<tr><th>#</th><th>Library ID</th><th>First Name</th><th>Last Name</th><th>Password</th><th>Action</th></tr>";
                 echo "</thead>";
                 echo "<tbody>";
-
+                $count = 0;
                 while($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr>";
+                    $count++;
+                    $id = ($count % 2 == 0) ? "even" : "odd";
+                    echo "<tr id='".$id."'>";
                     echo "<td>" . $row['student_no'] . "</td>";
                     echo "<td>" . $row['lid'] . "</td>";
                     echo "<td>" . $row['fname'] . "</td>";

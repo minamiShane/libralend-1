@@ -124,16 +124,17 @@
          <div class="flex items-center justify-center rounded bg-[#123499] hover:bg-[#0b6317] h-28">
             <p class="text-2xl text-[#fcfaff]">
             <?php 
-                   $query = "SELECT COUNT(*) AS total_fines FROM borrow WHERE fines";
+                   $query = "SELECT * FROM borrow WHERE fines != 0";
                    $result = mysqli_query($con, $query);
                    
                    if($result) {
                        if(mysqli_num_rows($result) > 0) {
                         $total_fines = 0;
                         while ($row = mysqli_fetch_assoc($result)) {
-                        $total_fines += $row['total_fines'];
-                        echo "total fines:" . " <p class='text-2xl ml-5 bg-[#fcfaff] text-center rounded-md p-1 text-[#123499] hover:text-[#0b6317] '> $total_fines </p>";
+                        $total_fines += $row['fines'];
                         }
+                        echo "total fines:" . " <p class='text-2xl ml-5 bg-[#fcfaff] text-center rounded-md p-1 text-[#123499] hover:text-[#0b6317] '> $total_fines </p>";
+
                      }
                    } else {
                        echo "Error: Unable to fetch the total number of users";
