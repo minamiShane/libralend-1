@@ -8,7 +8,6 @@
             $borrow_no = $_POST['borrow_no'];
             $number_created = $_POST['number_created'];
 
-            // Fetch the number_created from the database for the given borrow_no
             $qry_cd = "SELECT number_created FROM borrow WHERE borrow_no = '$borrow_no'";
             $result = mysqli_query($con, $qry_cd);
 
@@ -16,9 +15,8 @@
                 $row = mysqli_fetch_assoc($result);
                 $stored_code = $row['number_created'];
 
-                // Compare the inputted code with the stored one
                 if($input_code === $stored_code) {
-                    // Codes match, update the borrow status and display dates
+
                     $today = date("Y-m-d");
                     $due = date("Y-m-d", strtotime("+7 weekdays"));
 
@@ -35,21 +33,21 @@
                               </script>";
                     }
                 } else {
-                    // Codes don't match, show error message
+
                     echo "<script type='text/javascript'>
                             alert('Incorrect code.');
                             window.location = 'borrow.php';
                           </script>";
                 }
             } else {
-                // Borrow number not found in the database
+
                 echo "<script type='text/javascript'>
                         alert('Invalid borrow number.');
                         window.location = 'borrow.php';
                       </script>";
             }
         } else {
-            // Form fields are not properly set
+
             echo "<script type='text/javascript'>
                     alert('Form fields are missing.');
                     window.location = 'borrow.php';

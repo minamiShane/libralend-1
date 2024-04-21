@@ -47,7 +47,7 @@ session_start();
     }
     </style>
     <title>
-        Borrowed Books
+        Fines
     </title>
     <style type="text/css">
         .even-row {
@@ -79,7 +79,7 @@ session_start();
             echo "
                 <table class='border-dashed border-2 w-full mt-8' id='table'>
                 <thead class='border-dashed border-2 bg-[#c3d3ff]'>
-                <tr><th class='border-dashed border-2'>From</th><th class='border-dashed border-2'>Book Title</th><th class='border-dashed border-2'>Book Author</th><th class='border-dashed border-2'>Date Borrow</th><th class='border-dashed border-2'></th><th class='border-dashed border-2'>Due Date</th><th class='border-dashed border-2'>Fines</th></tr>
+                <tr><th class='border-dashed border-2'>From</th><th class='border-dashed border-2'>Book Title</th><th class='border-dashed border-2'>Book Author</th><th class='border-dashed border-2'>Fines</th></tr>
                 </thead>";
             echo "<tbody class='border-dashed border-2 p-2'>";
 
@@ -90,41 +90,23 @@ session_start();
                 echo "<td class='border-dashed border-2'>" . $_row['from_who'] . "</td>";
                 echo "<td class='border-dashed border-2'>" . $_row['book_title'] . "</td>";
                 echo "<td class='border-dashed border-2'>" . $_row['book_author'] . "</td>";
-                $_SESSION['borrow_no'] = $_row['borrow_no'];
-                if($_row['status']=='pending'){
-                    echo " <td class='border-dashed border-2'>pending...</td>";  
-                }elseif($_row['status'] == 'borrowed'){
-                    echo "<td class='border-dashed border-2'>" . $_row['date_borrow'] . "</td>";
-                }else{
-                    echo "<td class='border-dashed border-2'>" . $_row['date_borrow'] . "</td>";
-                }
-                $_SESSION['number_created'] = $_row['number_created'];
-                if($_row['status'] == 'pending'){
-                    echo " <td class='border-dashed border-2'><form action='borrowed.php' method='POST'>
-                    <input type='hidden' name='borrow_no' value=" . $_row["borrow_no"] . ">
-                    <input type='hidden' name='number_created' value=" . $_row["number_created"] . ">
-                    <input type='text' placeholder='type code here' name='codes'>
-                    <button type='submit' class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' >send</button>
-                    </form></td>";
-                }elseif($_row['status'] == 'borrowed'){
-                    echo "<td class='border-dashed border-2'>Borrowed</td>";
-                }elseif($_row['status'] == 'returned'){
-                    echo "<td class='border-dashed border-2'>Done</td>";
-                }
-                
-                if($_row['status'] == 'borrowed'){
-                    echo "<td class='border-dashed border-2'>" . $_row['due_date'] . "</td>";
-                }elseif($_row['status'] == 'returned'){ 
-                    echo "<td class='border-dashed border-2'>Done</td>";
-                }else{
-                    echo "Enter the code";
-                }
                 if($_row['status'] == 'pending'){
                     echo "<td class='border-dashed border-2'>pending...</td>";
                 }elseif($_row['status'] == 'borrowed'){
                     echo "<td class='border-dashed border-2'>" . $_row['fines'] . "</td>";
                 }else{
                     echo "<td class='border-dashed border-2'>Book Returned</td>";
+                }
+
+                if($_row['status'] == 'pending'){
+                    echo "<td class='border-dashed border-2'>pending...</td>";
+                }elseif($_row['status'] == 'borrowed'){
+                echo "<td class='border-dashed border-2'>
+                <form action='return.php' method='POST'>
+                <input type='hidden' name='borrow_no' value=" . $_row["borrow_no"] . ">
+                <button type='submit' name='return' class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>Returned</button>
+                </form>
+                </td>";
                 }
                 echo "</tr>";
             }

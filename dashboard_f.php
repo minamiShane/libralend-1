@@ -89,6 +89,15 @@
             bar.style.color = '#fcfaff';
        }
    });
+   window.addEventListener('DOMContentLoaded', (event) => {
+      var icoo = document.getElementById('ico');
+      var iconn = document.getElementById('ico');
+      if (window.location.href.indexOf("fines.php") !== -1) {
+            icoo.style.backgroundColor = '#0b6317';
+            icoo.style.color = '#fcfaff';
+            iconn.style.color = '#fcfaff';
+       }
+   });
    </script>
    <button data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar" aria-controls="sidebar-multi-level-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
    <span class="sr-only">Open sidebar</span>
@@ -136,8 +145,8 @@
          </li>
          <li>
          <li>
-            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
-            <i class="fa-solid fa-coins fa-xl flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18 " id="reserve"></i>
+            <a href="fines.php" id="ico" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
+            <i id="ico" class="fa-solid fa-coins fa-xl flex-shrink-0 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18 " id="reserve"></i>
                <span class="flex-1 ms-3 whitespace-nowrap">Fines</span>
             </a>
          </li>

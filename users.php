@@ -30,8 +30,8 @@
         padding: 24px 16px 0 0;
         height: 100%;
     }
-    .table, thead, tr, td, th{
-        border: 1px solid #D1D5DB;
+    table, tr, td, th{
+        border: 2px dashed #D1D5DB;
         color: #123499;
         padding: 8px;
         text-align: center;
@@ -94,7 +94,7 @@
             $result = mysqli_query($con, $query);
 
             if(mysqli_num_rows($result) > 0) {
-                echo "<table class='table'>";
+                echo "<table class='border-dashed border-2'>";
                 echo "<thead>";
                 echo "<tr><th>#</th><th>Library ID</th><th>First Name</th><th>Last Name</th><th>Password</th><th>Action</th></tr>";
                 echo "</thead>";
