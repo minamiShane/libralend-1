@@ -59,13 +59,13 @@
 <script>
       //for dashboard
     window.addEventListener('DOMContentLoaded', (event) => {
-      var home = document.getElementById('users');
-      var home_icon = document.getElementById('i-borrow');
-      if (window.location.href.indexOf("borrow_book.php") !== -1) {
+      var user = document.getElementById('user');
+      var userlogo = document.getElementById('userlogo');
+      if (window.location.href.indexOf("user_profile.php") !== -1) {
          if (home) {
-            home.style.backgroundColor = '#0b6317';
-            home.style.color = '#fcfaff';
-            home_icon.style.color = '#fcfaff';
+            user.style.backgroundColor = '#0b6317';
+            user.style.color = '#fcfaff';
+            userlogo.style.color = '#fcfaff';
          }
        }
    });
@@ -100,7 +100,7 @@
             </a>
         </li>
         <li>
-            <a href="user_profile.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
+            <a href="user_profile.php" id="user" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
                <svg id="userlogo" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                   <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
                </svg>
@@ -114,15 +114,15 @@
             </a>
          </li>
          <li>
-            <a href="" id="users" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
+            <a href="borrow_book.php" id="users" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
             <i id="i-borrow" class="fa-solid fa-address-book fa-xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21" id="books"></i>
                <span class="flex-1 ms-3 whitespace-nowrap">Book Borrow</span>
             </a>
          </li>
          <li>
          <li>
-            <a href="users_fine.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
-              <i class="fa-solid fa-coins fa-xl mt-3 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18 " id="reserve"></i>
+            <a href="users_fine.php" id="fine" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
+              <i id="fines" class="fa-solid fa-coins fa-xl mt-3 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18 " id="reserve"></i>
                <span class="flex-1 ms-3 whitespace-nowrap">Fines</span>
             </a>
          </li>
@@ -138,103 +138,49 @@
    </div>
 </aside>
 <div class="ml-72 mr-12">
-<?php
-    if($_SERVER['REQUEST_METHOD']=='POST'){
-        if($_POST['no']){
-            $s_n = $_POST['no'];
-            $q_cust = $con->query("SELECT * FROM books WHERE no = '$s_n'");
-            $r_cust = $q_cust->fetch_assoc();
-            $no = $r_cust['no'];
-            $book_title = $r_cust['book_title'];
-            $book_author = $r_cust['book_author'];
-            $book_no = $r_cust['book_no'];
-            $number_created = rand(1000,9999);
-
-            $lid = $_SESSION['lid'];
-            $sel = "SELECT * FROM register WHERE lid='$lid'";
-            $query = mysqli_query($con, $sel);
-        
-            if(mysqli_num_rows($query) == 1) {
-              $result = mysqli_fetch_assoc($query);
-              $fname = $result['fname'];
-              $lname = $result['lname'];
-              $name = $fname . " " . $lname;
-
-            $_sel = "INSERT INTO borrow (book_title, book_author, book_no, number_created, from_who)  
-            values ('$book_title', '$book_author', '$book_no', '$number_created', '$name')";
-            $_qry = mysqli_query($con, $_sel);
-
-            $history = "INSERT INTO history (book_title, book_author, book_no, number_created, from_who)  
-            values ('$book_title', '$book_author', '$book_no', '$number_created', '$name')";
-            $hstry_qry = mysqli_query($con, $history);
-
-            if($_qry && $history){
-                echo'
-                    <script type="text/javascript">
-                        alert("Please present the 4 digit code to your Library Administrator.");
-                        window.location = "borrow_book.php";
-                    </script>
-                ';
-                exit();
-            }
-            exit();
-        }
-        exit();
-    }
-    }
-    $lid = $_SESSION['lid'];
-    $sel = "SELECT * FROM register WHERE lid='$lid'";
-    $query = mysqli_query($con, $sel);
-
-    if(mysqli_num_rows($query) == 1) 
-        $result = mysqli_fetch_assoc($query);
-        $fname = $result['fname'];
-        $lname = $result['lname'];
-        $name = $fname . " " . $lname;
-
-    $q_y = "SELECT * FROM borrow WHERE from_who LIKE '%$name%'";
-    $r_t = mysqli_query($con, $q_y);
-
-    if(mysqli_num_rows($r_t) > 0) {
-      echo "<table class='border-dashed border-2 w-full mt-12 py-2'>";
-      echo "<thead class='border-dashed border-2 bg-[#c3d3ff]'>";
-      echo "<tr><th class='border-dashed border-2'>Book No.</th><th class='border-dashed border-2'>Book Title</th><th class='border-dashed border-2'>Book Author</th><th class='border-dashed border-2'>Date Borrow</th><th class='border-dashed border-2'>Due Date</th><th class='border-dashed border-2'>Code</th><th class='border-dashed border-2'>Fines</th></tr>";
-      echo "</thead>";
-      echo "<tbody class='border-dashed border-2'>";
-      $count = 0;
-      while($_row = mysqli_fetch_assoc($r_t)) {
-          $count++;
-          $row_class = ($count % 2 == 0) ? "even-row" : "odd-row";
-          echo "<tr class='".$row_class."'>";
-          echo "<td class='border-dashed border-2'>" . $_row['book_no'] . "</td>";
-          echo "<td class='border-dashed border-2'>" . $_row['book_title'] . "</td>";
-          echo "<td class='border-dashed border-2'>" . $_row['book_author'] . "</td>";
-          if($_row['status']=='pending'){
-            echo "<td class='border-dashed border-2'>pending...</td>";
-            echo "<td class='border-dashed border-2'>pending...</td>";
-          }else{
-            echo "<td class='border-dashed border-2'>" . $_row['date_borrow'] . "</td>";
-            echo "<td class='border-dashed border-2'>" . $_row['due_date'] . "</td>";
-          }
-          echo "<td class='border-dashed border-2 bg-[#c3d3ff]'>" . $_row['number_created'] . "</td>";
-          if($_row['status']=='pending'){
-            echo "<td class='border-dashed border-2'>";
-            echo "pending...";
-            echo "</td>";
-          }else{
-            echo "<td class='border-dashed border-2'>";
-              echo $_row['fines'];
-            echo "</td>";
-          }
-          echo "</tr>";
-      }
-      echo "</tbody>";
-      echo "</table>";
-  } else {
-      echo "You don't have any transaction here.";
-  }
-?>
 </div>
+
+<?php
+   include('dashboard_f.php');
+   if(isset($_GET['student_no'])){
+    $s_n = $_GET['student_no'];
+    $q_cust = $con->query("SELECT * FROM register WHERE student_no = '$s_n'");
+    $row = $q_cust->fetch_assoc();
+  }
+   ?>
+   <div class="ml-72 mt-12 border-dashed border-2 mr-12 flex justify-center">
+      <div>
+      <div class="p-2">
+        <h1 class="text-2xl font-semibold ml-8 text-[#123499]">USER PERSONAL INFORMATION</h1>
+      </div>
+      <div class="p-2">
+        <h1 class="text-xl font-semibold my-1 text-[#123499]">First Name</h1>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['fname'];?></p>
+      </div>
+      <div class="p-2">
+        <h1 class="text-xl font-semibold my-1 text-[#123499]">Last Name</h1>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['lname'];?></p>
+      </div>
+      <div class="p-2">
+        <h1 class="text-xl font-semibold my-1 text-[#123499]">Library ID</h1>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['lid'];?></p>
+      </div>
+      <div class="p-2">
+        <h1 class="text-xl font-semibold my-1 text-[#123499]">Contact No.</h1>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['contact_no'];?></p>
+      </div>
+      </div>
+      <div class="mt-8">
+      <div class="p-2">
+        <h1 class="text-2xl font-semibold my-1 ml-8 text-[#123499]">ADDRESS</h1>
+        <h1 class="text-xl font-semibold text-[#123499]">Barangay</h1>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['barangay'];?></p>
+        <h1 class="text-xl font-semibold my-1 text-[#123499]">Municipality</h1>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['municipality'];?></p>
+        <h1 class="text-xl font-semibold my-1 text-[#123499]">Province</h1>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['province'];?></p>
+      </div>
+   </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>

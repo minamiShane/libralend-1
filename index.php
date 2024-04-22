@@ -27,8 +27,8 @@
             } elseif(mysqli_num_rows($r_admin) == 1){
                 $row = mysqli_fetch_assoc($r_admin);
                 if($row['username']== $lid && $row['password']== $password){
-                    $_SESSION['admin_no'] = $lid;
-                    $_SESSION['name'] = $row['name'];
+                    #$_SESSION['admin_no'] = $lid;
+                    $_SESSION['lid'] = $row['admin_no'];
                     header("Location: dashb.php");
                 }
             }else{

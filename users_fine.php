@@ -59,13 +59,13 @@
 <script>
       //for dashboard
     window.addEventListener('DOMContentLoaded', (event) => {
-      var home = document.getElementById('users');
-      var home_icon = document.getElementById('i-borrow');
-      if (window.location.href.indexOf("borrow_book.php") !== -1) {
+      var fine = document.getElementById('fine');
+      var fines = document.getElementById('fines');
+      if (window.location.href.indexOf("users_fine.php") !== -1) {
          if (home) {
-            home.style.backgroundColor = '#0b6317';
-            home.style.color = '#fcfaff';
-            home_icon.style.color = '#fcfaff';
+            fine.style.backgroundColor = '#0b6317';
+            fine.style.color = '#fcfaff';
+            fines.style.color = '#fcfaff';
          }
        }
    });
@@ -114,15 +114,15 @@
             </a>
          </li>
          <li>
-            <a href="" id="users" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
+            <a href="borrow_book.php" id="users" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
             <i id="i-borrow" class="fa-solid fa-address-book fa-xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21" id="books"></i>
                <span class="flex-1 ms-3 whitespace-nowrap">Book Borrow</span>
             </a>
          </li>
          <li>
          <li>
-            <a href="users_fine.php" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
-              <i class="fa-solid fa-coins fa-xl mt-3 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18 " id="reserve"></i>
+            <a href="" id="fine" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#123499] hover:text-[#fcfaff] dark:hover:bg-gray-700 group">
+              <i id="fines" class="fa-solid fa-coins fa-xl mt-3 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#fcfaff] dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18 " id="reserve"></i>
                <span class="flex-1 ms-3 whitespace-nowrap">Fines</span>
             </a>
          </li>
@@ -198,7 +198,7 @@
     if(mysqli_num_rows($r_t) > 0) {
       echo "<table class='border-dashed border-2 w-full mt-12 py-2'>";
       echo "<thead class='border-dashed border-2 bg-[#c3d3ff]'>";
-      echo "<tr><th class='border-dashed border-2'>Book No.</th><th class='border-dashed border-2'>Book Title</th><th class='border-dashed border-2'>Book Author</th><th class='border-dashed border-2'>Date Borrow</th><th class='border-dashed border-2'>Due Date</th><th class='border-dashed border-2'>Code</th><th class='border-dashed border-2'>Fines</th></tr>";
+      echo "<tr><th class='border-dashed border-2'>Book No.</th><th class='border-dashed border-2'>Book Title</th><th class='border-dashed border-2'>Book Author</th><th class='border-dashed border-2'>Fines</th></tr>";
       echo "</thead>";
       echo "<tbody class='border-dashed border-2'>";
       $count = 0;
@@ -210,16 +210,12 @@
           echo "<td class='border-dashed border-2'>" . $_row['book_title'] . "</td>";
           echo "<td class='border-dashed border-2'>" . $_row['book_author'] . "</td>";
           if($_row['status']=='pending'){
-            echo "<td class='border-dashed border-2'>pending...</td>";
-            echo "<td class='border-dashed border-2'>pending...</td>";
-          }else{
-            echo "<td class='border-dashed border-2'>" . $_row['date_borrow'] . "</td>";
-            echo "<td class='border-dashed border-2'>" . $_row['due_date'] . "</td>";
-          }
-          echo "<td class='border-dashed border-2 bg-[#c3d3ff]'>" . $_row['number_created'] . "</td>";
-          if($_row['status']=='pending'){
             echo "<td class='border-dashed border-2'>";
             echo "pending...";
+            echo "</td>";
+          }elseif($_row['status']=='returned'){
+            echo "<td class='border-dashed border-2'>";
+            echo "RETURNED";
             echo "</td>";
           }else{
             echo "<td class='border-dashed border-2'>";

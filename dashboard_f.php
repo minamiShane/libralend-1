@@ -1,5 +1,10 @@
 <?php
    include("db.php");
+
+//    if (!isset($_SESSION['admin_no'])) {
+//       header("Location: index.php");
+//       exit();
+//   }
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -45,37 +45,40 @@ include("db.php");
    if(isset($_GET['student_no'])){
     $s_n = $_GET['student_no'];
     $q_cust = $con->query("SELECT * FROM register WHERE student_no = '$s_n'");
-    $r_cust = $q_cust->fetch_assoc();
+    $row = $q_cust->fetch_assoc();
   }
    ?>
-   <div class="ml-72 mt-12 border-dashed border-2 mr-12">
-      <div class="my-2 p-4">
+   <div class="ml-72 mt-12 border-dashed border-2 mr-12 flex justify-center">
+      <div>
+      <div class="p-2">
         <h1 class="text-2xl font-semibold ml-8 text-[#123499]">USER PERSONAL INFORMATION</h1>
       </div>
-      <div class="my-2 p-4">
+      <div class="p-2">
         <h1 class="text-xl font-semibold my-1 text-[#123499]">First Name</h1>
-        <p class="text-xl ml-4"><?=$r_cust['fname'];?></p>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['fname'];?></p>
       </div>
-      <div class="my-2 p-4">
+      <div class="p-2">
         <h1 class="text-xl font-semibold my-1 text-[#123499]">Last Name</h1>
-        <p class="text-xl ml-4"><?=$r_cust['lname'];?></p>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['lname'];?></p>
       </div>
-      <div class="my-2 p-4">
+      <div class="p-2">
         <h1 class="text-xl font-semibold my-1 text-[#123499]">Library ID</h1>
-        <p class="text-xl ml-4"><?=$r_cust['lid'];?></p>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['lid'];?></p>
       </div>
-      <div class="my-2 p-4">
+      <div class="p-2">
         <h1 class="text-xl font-semibold my-1 text-[#123499]">Contact No.</h1>
-        <p class="text-xl ml-4"><?=$r_cust['contact_no'];?></p>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['contact_no'];?></p>
       </div>
-      <div class="my-2 p-4">
+      </div>
+      <div class="mt-8">
+      <div class="p-2">
         <h1 class="text-2xl font-semibold my-1 ml-8 text-[#123499]">ADDRESS</h1>
         <h1 class="text-xl font-semibold text-[#123499]">Barangay</h1>
-        <p class="text-xl ml-4"><?=$r_cust['barangay'];?></p>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['barangay'];?></p>
         <h1 class="text-xl font-semibold my-1 text-[#123499]">Municipality</h1>
-        <p class="text-xl ml-4"><?=$r_cust['municipality'];?></p>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['municipality'];?></p>
         <h1 class="text-xl font-semibold my-1 text-[#123499]">Province</h1>
-        <p class="text-xl ml-4"><?=$r_cust['province'];?></p>
+        <p class="text-xl ml-4 text-slate-700	"><?=$row['province'];?></p>
       </div>
    </div>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
