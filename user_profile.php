@@ -196,8 +196,8 @@
       </div>
       <div class="mt-8">
         <form action="users_info.php" method="POST">
-          <input type='hidden' name='borrow_no' value="<?=$row['student_no'];?>">
-          <button type="submit" name="student_no" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit Information</button>
+          <input type='hidden' name='student_no' value="<?=$result['student_no'];?>">
+          <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit Information</button>
         </form>
       </div>
    </div>

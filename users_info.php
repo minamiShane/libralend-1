@@ -170,13 +170,16 @@
 </aside>
 <div style="margin-left: 300px" id="div" class="flex align-center justify-center">
                   <?php
-                  if($_SERVER['REQUEST_METHOD'] == "POST"){
-                        if(isset($_POST['student_no'])){
-                            $s_n = $_POST['student_no'];
-                            $q_cust = $con->query("SELECT * FROM register WHERE lid = '$s_n'");
-                            $r_cust = $q_cust->fetch_assoc();
+                  if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                    if (isset($_POST['student_no'])) {
+                        $s_n = $_POST['student_no'];
+                        $sel = "SELECT * FROM register WHERE student_no = '$s_n'";
+                        $qry = mysqli_query($con, $sel);
+                        if (mysqli_num_rows($qry) > 0) {
+                          $r_cust = mysqli_fetch_assoc($qry);
+                          
                   ?>
-        <form action="" method="POST" id="reg" class="mt-16 flex-column w-2/3 ">
+        <form action="u_update.php" method="POST" id="reg" class="mt-16 flex-column w-2/3 ">
         <div><h1 class="text-4xl font-bold text-gray-900">UPDATE</h1></div>
         <div class="grid grid-cols-2 gap 4">
                 <div class="content">
@@ -192,7 +195,7 @@
                 </div>
                 <div class="content">
                 <label for="lid">contact no</label>
-                <input type="text" name="lid" value="<?=$r_cust['contact_no'];?>" autocomplete="off" required>
+                <input type="text" name="contact" value="<?=$r_cust['contact_no'];?>" autocomplete="off" required>
                     <label for="lid">barangay</label>
                     <input type="text" name="brgy" value="<?=$r_cust['barangay'];?>" autocomplete="off" required>
                     <label for="lid">municipality</label>
@@ -201,58 +204,15 @@
                     <input type="text" name="prov" value="<?=$r_cust['province'];?>" autocomplete="off" required>
                 </div>
                 <div class="log-in">
-                    <input type="submit" name="submit" value="Update">
+                    <input type='hidden' name='update' value="<?=$result['student_no'];?>">
+                    <input type="submit" value="Update">
                 </div>
-                <?php
-                        }
-                  }
-                ?>
         </form>
         <?php
-                    if(isset($_POST['submit'])) {
-                        $lid = mysqli_real_escape_string($con, $_POST['lid']);
-                        $fname = mysqli_real_escape_string($con, $_POST['fname']);
-                        $lname = mysqli_real_escape_string($con, $_POST['lname']);
-                        $password = $_POST['password'];
-                        $brgy = mysqli_real_escape_string($con, $_POST['brgy']);
-                        $muni = mysqli_real_escape_string($con, $_POST['muni']);
-                        $prov = mysqli_real_escape_string($con, $_POST['prov']);
-
-                        $query = "UPDATE register 
-                        SET lid = '$lid', 
-                        fname = '$fname', 
-                        lname = '$lname', 
-                        password = '$password',  
-                        barangay = '$brgy',
-                        municipality = '$muni',
-                        province = '$prov'
-                        WHERE student_no = '$lid'";
-
-                        if(mysqli_query($con, $query)) {
-                            ?>
-                                <script type="text/javascript">
-                                    alert("Successfully Updated!");
-                                    window.location = "user_profile.php";
-                                </script>
-                            <?php
-                            exit();
-                        } else {
-                            ?>
-                            <script type="text/javascript">
-                                alert("Failed to update!");
-                                window.location = "user_profile.php";
-                            </script>
-                            <?php
                         }
-                    }else{
-                        ?>
-                        <script type="text/javascript">
-                            alert("Failed to update!");
-                            window.location = "user_profile.php";
-                        </script>
-                        <?php  
+                      }
                     }
-                ?>
+        ?>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
