@@ -21,7 +21,6 @@
             <ul>
                 <li><a href="#home" class="elements">Home</a></li>
                 <li><a href="#abt" class="elements">About</a></li>
-                <li><a href="#contact" class="elements">Contacts</a></li>
             </ul>
         </div>
         <div class="nav">
@@ -30,7 +29,6 @@
                     <li><button type="button" onclick="navback()"><i class="fa-solid fa-greater-than fa-2x"></i></button></li>
                     <li><a href="#home" class="elements">Home</a></li>
                     <li><a href="#abt" class="elements">About</a></li>
-                    <li><a href="#contact" class="elements">Contacts</a></li>
                 </ul>
             </div>
         </div>
